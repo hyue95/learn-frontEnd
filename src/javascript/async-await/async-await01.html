@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+  /*
+  async => 普通函数被包装成 Promise
+  await => 生成器使异步代码变成同步代码
+
+  */ 
+  const getData = () => new Promise(resolve => setTimeout(() => resolve("data"), 3000))
+
+  async function test() {
+    console.log('start')
+    const data = await getData()  //在这里堵塞
+    console.log(111)
+    console.log('data: ', data);
+    console.log(123)
+    const data2 = await getData() //在这里堵塞
+    console.log(222)
+    console.log('data2: ', data2);
+    console.log(456)
+    return 'success'
+  }
+
+  // 这样的一个函数 应该再1秒后打印data 再过一秒打印data2 最后打印success
+  test().then(res => console.log(res)) 
+
+ /*  function worker(){
+    setTimeout(() => {
+      console.log(2)
+    }, 1000)
+  }
+
+  async function run(){
+    let res = await worker()
+    console.log(1)
+  }
+
+  run() //1 2
+ */
+  </script>
+</body>
+</html>
